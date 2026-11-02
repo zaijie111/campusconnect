@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampusConnect — Smart Campus Life</title>
+<style>
+:root{--navy:#172554;--blue:#3157d5;--sky:#eaf0ff;--ink:#172033;--muted:#667085;--line:#e7eaf1;--bg:#f6f8fc;--green:#16845b}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}.sidebar{background:#fff;border-right:1px solid var(--line);padding:26px 16px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;margin:0 8px 32px}.logo{background:var(--blue);color:white;border-radius:12px;width:38px;height:38px;display:grid;place-items:center}.nav{display:grid;gap:7px}.nav button{border:0;background:transparent;text-align:left;padding:12px 13px;border-radius:11px;color:#586174;font-size:14px;cursor:pointer}.nav button.active,.nav button:hover{background:var(--sky);color:var(--blue);font-weight:700}.side-note{margin:35px 8px 0;padding:15px;background:#f6f8ff;border-radius:14px;font-size:12px;color:var(--muted);line-height:1.5}
+main{padding:28px clamp(18px,4vw,48px);max-width:1400px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:28px}.eyebrow{color:var(--blue);font-size:12px;text-transform:uppercase;letter-spacing:.1em;font-weight:800}.top h1{font-size:clamp(25px,3vw,34px);margin:5px 0 0;letter-spacing:-.04em}.profile{display:flex;align-items:center;gap:10px;background:white;border:1px solid var(--line);padding:8px 13px;border-radius:999px;font-size:13px}.avatar{width:32px;height:32px;border-radius:50%;background:#dce6ff;color:var(--blue);display:grid;place-items:center;font-weight:800}
+.hero{background:linear-gradient(115deg,#1e3284,#3d65df);color:white;border-radius:22px;padding:28px 30px;display:flex;justify-content:space-between;align-items:center;gap:20px;overflow:hidden;position:relative}.hero h2{font-size:clamp(22px,3vw,31px);margin:8px 0}.hero p{margin:0;color:#e0e7ff;max-width:520px;line-height:1.55}.hero .date{font-size:13px;color:#d8e1ff}.hero-icon{font-size:80px;opacity:.9;padding:0 22px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:22px 0}.stat,.panel{background:#fff;border:1px solid var(--line);border-radius:17px;padding:20px}.stat-head{display:flex;justify-content:space-between;color:var(--muted);font-size:13px}.stat-icon{background:var(--sky);color:var(--blue);border-radius:10px;width:36px;height:36px;display:grid;place-items:center;font-size:18px}.stat strong{display:block;font-size:29px;margin:14px 0 4px;letter-spacing:-.04em}.stat small{color:var(--muted)}.lower{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}.panel h3{margin:0 0 16px;font-size:17px}.panel-head{display:flex;justify-content:space-between;align-items:center}.link{color:var(--blue);font-size:12px;font-weight:700;cursor:pointer;border:0;background:transparent}.event,.space{display:flex;align-items:center;gap:13px;padding:13px 0;border-top:1px solid var(--line)}.event-date{width:49px;min-width:49px;height:53px;background:#f0f3ff;border-radius:11px;display:grid;place-items:center;color:var(--blue);font-size:11px;font-weight:800;text-align:center}.event-date b{font-size:19px;display:block}.event-info{flex:1}.event-info strong{font-size:14px;display:block}.event-info small{color:var(--muted);display:block;margin-top:5px}.tag{background:#e5f7ef;color:var(--green);border-radius:999px;padding:5px 9px;font-size:11px;font-weight:800;white-space:nowrap}.space .place-icon{width:42px;height:42px;border-radius:12px;background:#f2f5fb;display:grid;place-items:center;font-size:20px}.space-info{flex:1}.space-info strong{font-size:14px;display:block}.space-info small{color:var(--muted);display:block;margin-top:5px}.progress{height:6px;background:#edf0f6;border-radius:9px;margin-top:9px;overflow:hidden}.progress span{height:100%;display:block;background:#4770e8;border-radius:9px}.section{display:none}.section.active{display:block}.section-intro{color:var(--muted);margin-top:-15px;margin-bottom:22px}.simple-list{display:grid;gap:12px}.item{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;justify-content:space-between;gap:14px;align-items:center}.item strong{display:block}.item small{display:block;color:var(--muted);margin-top:5px}.primary{background:var(--blue);color:white;border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}.secondary{background:#eef2ff;color:var(--blue);border:0;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}.formrow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.formrow input,.formrow select{padding:11px;border:1px solid var(--line);border-radius:10px;background:white;min-width:170px}.toast{position:fixed;bottom:20px;right:20px;background:#172554;color:white;padding:13px 17px;border-radius:12px;box-shadow:0 8px 30px #17255430;display:none;z-index:10}
+@media(max-width:850px){.app{grid-template-columns:1fr}.sidebar{border-right:0;border-bottom:1px solid var(--line);padding:12px 14px}.brand{margin:0 6px 12px}.nav{display:flex;overflow:auto}.nav button{white-space:nowrap}.side-note{display:none}main{padding:22px 15px}.lower{grid-template-columns:1fr}.hero-icon{display:none}}
+@media(max-width:570px){.grid{grid-template-columns:1fr}.top{align-items:flex-start}.profile span{display:none}.hero{padding:22px}.item{align-items:flex-start;flex-direction:column}.formrow input,.formrow select{width:100%}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">C</div><span>CampusConnect</span></div>
+  <nav class="nav">
+    <button class="active" data-page="dashboard">⌂ &nbsp; Dashboard</button>
+    <button data-page="spaces">▦ &nbsp; Study spaces</button>
+    <button data-page="map">⌖ &nbsp; Campus map</button>
+    <button data-page="schedule">▤ &nbsp; My schedule</button>
+    <button data-page="announcements">◉ &nbsp; Announcements</button>
+  </nav>
+  <div class="side-note"><b>Student-first campus life</b><br>Find a place to focus, know what's happening, and make the most of your day.<br><br><span>Prototype · Sample data only</span></div>
+</aside>
+<main>
+  <header class="top"><div><div class="eyebrow">Your campus, connected</div><h1 id="pageTitle">Good afternoon, student 👋</h1></div><div class="profile"><div class="avatar">S</div><span>Student account</span></div></header>
+  <section id="dashboard" class="section active">
+    <div class="hero"><div><div class="date" id="today"></div><h2>Your campus day, made easier.</h2><p>Find a quiet study spot, check your next class, and stay up to date with campus life.</p><br><button class="primary" onclick="showPage('spaces')">Find a study space →</button></div><div class="hero-icon">🎓</div></div>
+    <div class="grid">
+      <div class="stat"><div class="stat-head"><span>Study spaces available</span><span class="stat-icon">▦</span></div><strong id="availableCount">18</strong><small>Across 3 sample locations</small></div>
+      <div class="stat"><div class="stat-head"><span>Classes today</span><span class="stat-icon">▤</span></div><strong>3</strong><small>Next class at 2:00 PM</small></div>
+      <div class="stat"><div class="stat-head"><span>Upcoming events</span><span class="stat-icon">✦</span></div><strong>4</strong><small>One happening this week</small></div>
+    </div>
+    <div class="lower">
+      <div class="panel"><div class="panel-head"><h3>Upcoming campus events</h3><button class="link" onclick="showPage('announcements')">View all →</button></div>
+        <div class="event"><div class="event-date">OCT<b>23</b></div><div class="event-info"><strong>Student Club Fair</strong><small>Student Centre · 11:00 AM</small></div><span class="tag">This week</span></div>
+        <div class="event"><div class="event-date">OCT<b>25</b></div><div class="event-info"><strong>Study Skills Workshop</strong><small>Library, Room 2 · 2:00 PM</small></div></div>
+        <div class="event"><div class="event-date">OCT<b>28</b></div><div class="event-info"><strong>Campus Sustainability Day</strong><small>Main Hall · 10:00 AM</small></div></div>
+      </div>
+      <div class="panel"><div class="panel-head"><h3>Study spaces</h3><button class="link" onclick="showPage('spaces')">Explore →</button></div>
+        <div class="space"><div class="place-icon">📚</div><div class="space-info"><strong>Main Library</strong><small>12 of 30 seats available</small><div class="progress"><span style="width:40%"></span></div></div><span class="tag">Available</span></div>
+        <div class="space"><div class="place-icon">💻</div><div class="space-info"><strong>Learning Commons</strong><small>4 of 20 seats available</small><div class="progress"><span style="width:20%"></span></div></div><span class="tag">Quiet</span></div>
+        <div class="space"><div class="place-icon">☕</div><div class="space-info"><strong>Student Hub</strong><small>2 of 15 seats available</small><div class="progress"><span style="width:13%"></span></div></div><span class="tag">Busy</span></div>
+      </div>
+    </div>
+  </section>
+  <section id="spaces" class="section">
+    <h2>Find a study space</h2><p class="section-intro">Explore sample campus locations and their reported availability.</p>
+    <div class="formrow"><input id="spaceSearch" placeholder="Search locations..." oninput="filterSpaces()"><select id="spaceFilter" onchange="filterSpaces()"><option value="all">All availability</option><option value="available">Available</option><option value="busy">Busy</option></select></div>
+    <div id="spaceList" class="simple-list"></div>
+    <p style="color:var(--muted);font-size:12px;margin-top:15px">Availability values are demo data and are not connected to live sensors or university systems.</p>
+  </section>
+  <section id="map" class="section">
+    <h2>Campus map</h2><p class="section-intro">A simple campus directory for the prototype. Real map data can be added later.</p>
+    <div class="panel" style="background:linear-gradient(135deg,#edf5eb,#e6efff);min-height:310px;position:relative;overflow:hidden">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:620px;margin:12px auto">
+        <div class="item" style="background:#fff"><div>📚 <strong>Main Library</strong><small>Study zone · Building A</small></div><button class="secondary" onclick="notify('Main Library selected')">Details</button></div>
+        <div class="item" style="background:#fff"><div>🍽️ <strong>Cafeteria</strong><small>Food · Building C</small></div><button class="secondary" onclick="notify('Cafeteria selected')">Details</button></div>
+        <div class="item" style="background:#fff"><div>🎓 <strong>Student Centre</strong><small>Clubs & services</small></div><button class="secondary" onclick="notify('Student Centre selected')">Details</button></div>
+        <div class="item" style="background:#fff"><div>💻 <strong>Learning Commons</strong><small>Quiet study · Building B</small></div><button class="secondary" onclick="notify('Learning Commons selected')">Details</button></div>
+      </div>
+    </div>
+  </section>
+  <section id="schedule" class="section">
+    <h2>My schedule</h2><p class="section-intro">Add a class to test the schedule feature. Entries stay in this page during the current session.</p>
+    <form class="formrow" id="classForm"><input id="className" placeholder="Class name" required><input id="classTime" placeholder="Time (e.g. 2:00 PM)" required><input id="classRoom" placeholder="Room / building" required><button class="primary">Add class</button></form>
+    <div id="classList" class="simple-list"></div>
+  </section>
+  <section id="announcements" class="section">
+    <h2>Announcements & events</h2><p class="section-intro">Sample notices to help students keep up with campus life.</p>
+    <div class="simple-list">
+      <div class="item"><div><strong>Student Club Fair</strong><small>23 Oct · 11:00 AM · Student Centre</small><small>Meet student societies and explore activities for the semester.</small></div><span class="tag">Event</span></div>
+      <div class="item"><div><strong>Study Skills Workshop</strong><small>25 Oct · 2:00 PM · Library, Room 2</small><small>Learn practical note-taking and exam preparation strategies.</small></div><span class="tag">Workshop</span></div>
+      <div class="item"><div><strong>Library opening hours reminder</strong><small>Posted 20 Oct · Library</small><small>Please check official university channels for the latest opening hours.</small></div><span class="tag">Notice</span></div>
+      <div class="item"><div><strong>Campus Sustainability Day</strong><small>28 Oct · 10:00 AM · Main Hall</small><small>Join student activities focused on sustainability.</small></div><span class="tag">Event</span></div>
+    </div>
+  </section>
+</main>
+</div>
+<div id="toast" class="toast"></div>
+<script>
+const titles={dashboard:'Good afternoon, student 👋',spaces:'Study spaces',map:'Campus map',schedule:'My schedule',announcements:'Announcements & events'};
+const spaces=[
+{name:'Main Library',type:'Library',available:12,total:30,icon:'📚'},
+{name:'Learning Commons',type:'Quiet study',available:4,total:20,icon:'💻'},
+{name:'Student Hub',type:'Common area',available:2,total:15,icon:'☕'},
+{name:'Faculty Study Room',type:'Study room',available:0,total:10,icon:'🪑'},
+{name:'Graduate Lounge',type:'Lounge',available:7,total:12,icon:'🛋️'}];
+function showPage(id){document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));document.getElementById('pageTitle').textContent=titles[id];window.scrollTo({top:0,behavior:'smooth'});if(id==='spaces')renderSpaces()}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function notify(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2200)}
+function renderSpaces(){const q=(document.getElementById('spaceSearch').value||'').toLowerCase(),f=document.getElementById('spaceFilter').value;const list=spaces.filter(s=>s.name.toLowerCase().includes(q)&&(f==='all'||(f==='available'?s.available>0:s.available<=2)));document.getElementById('spaceList').innerHTML=list.map(s=>`<div class="item"><div style="display:flex;gap:13px;align-items:center"><div class="place-icon">${s.icon}</div><div><strong>${s.name}</strong><small>${s.type} · ${s.available} of ${s.total} seats available</small><div class="progress" style="max-width:260px"><span style="width:${s.available/s.total*100}%"></span></div></div></div><span class="tag">${s.available>2?'Available':s.available>0?'Limited':'Busy'}</span></div>`).join('')||'<div class="panel">No matching spaces found.</div>'}
+function filterSpaces(){renderSpaces()}
+renderSpaces();
+document.getElementById('classForm').addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('className').value.trim(),time=document.getElementById('classTime').value.trim(),room=document.getElementById('classRoom').value.trim();const item=document.createElement('div');item.className='item';item.innerHTML=`<div><strong></strong><small></small></div><button class="secondary">Remove</button>`;item.querySelector('strong').textContent=name;item.querySelector('small').textContent=time+' · '+room;item.querySelector('button').onclick=()=>item.remove();document.getElementById('classList').appendChild(item);e.target.reset();notify('Class added to your demo schedule')});
+document.getElementById('today').textContent=new Date().toLocaleDateString('en-MY',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+</script>
+</body>
+</html>
